@@ -1,0 +1,28 @@
+<div class="container" ng-controller="CustDashCtrl">
+
+		<div class="col-sm-12">
+				<div class="row">
+					<div class="col-md-9 cta-contents">
+						<h1>Hi {{FirstName}}, here are your videos!</h1>
+					</div>
+				</div>
+
+				<div class="bs-calltoaction bs-calltoaction-primary" ng-repeat="video in videoList">
+						<div class="row">
+								<div class="col-md-9 cta-contents">
+										<h1 class="cta-title">{{video.Title}}</h1>
+										<div class="cta-desc">
+												Catalog: {{video.Catalog}}
+										</div>
+								</div>
+								<div class="col-md-3 cta-button">
+										<img src="{{video.Poster}}" alt="test" height="90" width="130">
+								</div>
+								<div class="col-md-3 cta-button">
+										<a class="btn btn-lg btn-block btn-info" ng-click="streamVideo(video.URL,video.Title)">Stream the video!</a>
+								</div>
+						</div>
+				</div>
+		</div>
+</div>
+

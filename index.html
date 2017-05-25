@@ -1,0 +1,851 @@
+<html>
+
+<head>
+
+    <title> reLive UI </title>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+	<!-- AngularJS Code-->
+	<script src="js/wow.min.js"></script>
+
+	<!-- AngularJS Libraries -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.5.8/angular.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.6.1/angular-route.min.js"></script>
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-cookie/1.4.1/jquery.cookie.js" type="text/javascript"></script>
+	<script src="//ajax.googleapis.com/ajax/libs/angularjs/1.4.4/angular-cookies.js" type="text/javascript"></script>
+
+    <script src="https://unpkg.com/video.js/dist/video.js"></script>
+    <script src="https://unpkg.com/videojs-contrib-hls/dist/videojs-contrib-hls.js"></script>
+
+	<!-- CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+    <link rel="stylesheet" href="css/stlye.css">
+    <link rel="stylesheet" href="font-awesome-4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="css/animate.css">
+    <link rel="stylesheet" href="css/signup.css">
+    <link rel="stylesheet" href="css/contacts.css">
+    <link rel="stylesheet" href="css/client.css">
+    <link rel="stylesheet" href="css/calltoaction.css">
+    <link rel="stylesheet" href="css/partner.css">
+    <link rel="stylesheet" href="css/admin.css">
+    <link rel="stylesheet" href="css/payment.css">
+	<link href="https://unpkg.com/video.js/dist/video-js.css" rel="stylesheet">
+</head>
+
+<body>
+
+    <!--Navigation-->
+	<div id="navigation-bar-placeholder"></div>
+    <!--End of Navigation-->
+
+	<div ng-app="mainApp">
+		<ng-view></ng-view>
+	</div>
+
+<script>
+new WOW().init();
+
+// jQuery function to load the navigation bar
+function checkLoginStatusNav(){
+		$(function(){
+			//$("#navigation-bar-placeholder").load("navigation.html");
+			console.log($.cookie("auth_cookie"));
+			console.log($.cookie("role"));
+
+			if($.cookie("auth_cookie") == null || $.cookie("user_info") == null){
+				$("#navigation-bar-placeholder").load("navigation_out.html");
+			}else if($.cookie("role") == 1){
+				$("#navigation-bar-placeholder").load("navigation_partner.html");
+			}else if($.cookie("role") == 2){
+				$("#navigation-bar-placeholder").load("navigation_admin.html");
+			}else if($.cookie("role") == 3){
+				$("#navigation-bar-placeholder").load("navigation_customer.html");
+			}else{
+				$("#navigation-bar-placeholder").load("navigation_out.html");
+			}
+		});
+}
+
+checkLoginStatusNav();
+
+// ***************************************************************************************************
+var Base64={_keyStr:"ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/=",encode:function(e){var t="";var n,r,i,s,o,u,a;var f=0;e=Base64._utf8_encode(e);while(f<e.length){n=e.charCodeAt(f++);r=e.charCodeAt(f++);i=e.charCodeAt(f++);s=n>>2;o=(n&3)<<4|r>>4;u=(r&15)<<2|i>>6;a=i&63;if(isNaN(r)){u=a=64}else if(isNaN(i)){a=64}t=t+this._keyStr.charAt(s)+this._keyStr.charAt(o)+this._keyStr.charAt(u)+this._keyStr.charAt(a)}return t},decode:function(e){var t="";var n,r,i;var s,o,u,a;var f=0;e=e.replace(/[^A-Za-z0-9+/=]/g,"");while(f<e.length){s=this._keyStr.indexOf(e.charAt(f++));o=this._keyStr.indexOf(e.charAt(f++));u=this._keyStr.indexOf(e.charAt(f++));a=this._keyStr.indexOf(e.charAt(f++));n=s<<2|o>>4;r=(o&15)<<4|u>>2;i=(u&3)<<6|a;t=t+String.fromCharCode(n);if(u!=64){t=t+String.fromCharCode(r)}if(a!=64){t=t+String.fromCharCode(i)}}t=Base64._utf8_decode(t);return t},_utf8_encode:function(e){e=e.replace(/rn/g,"n");var t="";for(var n=0;n<e.length;n++){var r=e.charCodeAt(n);if(r<128){t+=String.fromCharCode(r)}else if(r>127&&r<2048){t+=String.fromCharCode(r>>6|192);t+=String.fromCharCode(r&63|128)}else{t+=String.fromCharCode(r>>12|224);t+=String.fromCharCode(r>>6&63|128);t+=String.fromCharCode(r&63|128)}}return t},_utf8_decode:function(e){var t="";var n=0;var r=c1=c2=0;while(n<e.length){r=e.charCodeAt(n);if(r<128){t+=String.fromCharCode(r);n++}else if(r>191&&r<224){c2=e.charCodeAt(n+1);t+=String.fromCharCode((r&31)<<6|c2&63);n+=2}else{c2=e.charCodeAt(n+1);c3=e.charCodeAt(n+2);t+=String.fromCharCode((r&15)<<12|(c2&63)<<6|c3&63);n+=3}}return t}}
+
+
+// ***************************************************************************************************
+//
+// AngularJS Controller ----	Route
+//
+// ***************************************************************************************************
+
+var app = angular.module("mainApp", ["ngRoute", "ngCookies"]);
+
+app.config(function($routeProvider, $sceProvider) {
+			$routeProvider
+			.when("/", {
+					templateUrl : "./home.html"
+					})
+			.when("/services", {
+					templateUrl : "./services.html"
+					})
+			.when("/pricing", {
+					templateUrl : "./pricing.html"
+					})
+			.when("/team", {
+					templateUrl : "./team.html"
+					})
+			.when("/clients", {
+					templateUrl : "./clients.html",
+					controller: "ClientCtrl"
+					})
+			.when("/contacts", {
+					templateUrl : "./contacts.html"
+					})
+			.when("/signin", {
+					templateUrl : "./signin.html",
+					controller: "LoginCtrl"
+					})
+			.when("/signup", {
+					templateUrl : "./signup.html"
+					})
+			.when("/upload", {
+					templateUrl : "./upload.html"
+					})
+			.when("/success", {
+					templateUrl : "./success.html"
+					})
+			.when("/failed", {
+					templateUrl : "./failed.html"
+					})
+			.when("/stream", {
+					templateUrl : "./stream.html"
+					})
+			.when("/customer_dashboard", {
+					templateUrl : "./customer_dashboard.html"
+					})
+			.when("/partner_dashboard", {
+					templateUrl : "./partner_dashboard.html"
+					})
+			.when("/admin_dashboard", {
+					templateUrl : "./admin_dashboard.html"
+					})
+			.when("/signout", {
+					templateUrl : "./signout.html"
+					})
+			.when("/signupcustomer", {
+					templateUrl : "./signupcustomer.html"
+                    })
+            .when("/signupadmin", {
+                    templateUrl : "./signupadmin.html"
+            })
+            .when("/payment", {
+                    templateUrl : "./payment.html"
+            })
+
+			;
+
+		$sceProvider.enabled(false);
+			}
+
+	);
+
+// ***************************************************************************************************
+//
+// AngularJS Controller ----	LoginCtrl
+//
+// ***************************************************************************************************
+
+app.controller('LoginCtrl', function($scope, $location, $http, $cookies) {
+	checkLoginStatusNav();
+
+	var checkCookie = $cookies.get('auth_cookie');
+
+	if( checkCookie == null ){
+		console.log("User is not logged in yet.");
+	}else{
+		console.log("Debug: User is already logged in.");
+		console.log("Debug: $cookies(user_info) = ", $cookies.get('user_info'));
+	}
+
+   $scope.handleSubmit = function() {
+        var login = "http://127.0.0.1:9999/api/accounts/login";
+		var authdata = Base64.encode($scope.login.UserName + ':' + $scope.login.PWD);
+
+		console.log(authdata);
+		console.log($scope.login.UserName);
+		console.log($scope.login.PWD);
+
+		// SET THE EXPIRATION TIME FOR THE LOGGED IN USER
+		var now = new Date();
+		now.setMinutes(now.getMinutes()+5);
+
+   	    $http.post(login, $scope.login) 
+   	   		.then(function(response) { 
+   	        	console.log("Login successful.");
+
+				if(response.data){
+					$cookies.put('auth_cookie', authdata, {expires: now});
+					$cookies.put('user_info', JSON.stringify(response.data), {expires: now});
+					$cookies.put('role', response.data.Role, {expires: now});
+					checkLoginStatusNav();
+				}
+
+				if(response.data.Role == 3){
+					$location.path('/customer_dashboard');
+					console.log("Debug: response.data.Role = ", response.data.Role);
+				}else if(response.data.Role == 2){
+					$location.path('/admin_dashboard');
+					console.log("Debug: response.data.Role = ", response.data.Role);
+				}else if(response.data.Role == 1){
+					$location.path('/partner_dashboard');
+					console.log("Debug: response.data.Role = ", response.data.Role);
+
+				}else{
+					$location.path('/success');
+				}
+       		})
+	   		.catch(function(response){
+			   console.log("Login unsuccessful.");
+	   		});
+   }
+       
+   $scope.resetLoginForm = function(){
+		$scope.login = null;
+   }
+
+});
+
+// ***************************************************************************************************
+//
+// AngularJS Controller ----	ClientCtrl
+//
+// ***************************************************************************************************
+
+app.controller('ClientCtrl', function($scope, $rootScope){
+	console.log("Client control");
+	checkLoginStatusNav();
+});
+
+// ***************************************************************************************************
+//
+// AngularJS Controller ----	HomeCtrl
+//
+// ***************************************************************************************************
+
+app.controller('HomeCtrl', function($scope, $rootScope){
+	console.log("Home control");
+	checkLoginStatusNav();
+});
+
+
+// ***************************************************************************************************
+//
+// AngularJS Controller ----	NavCtrl
+//
+// ***************************************************************************************************
+
+app.controller('SignoutCtrl', function($scope, $cookies, $location){
+	console.log("Signout control");
+	$cookies.remove("auth_cookie");	
+	$cookies.remove("user_info");	
+	$location.path("/");
+});
+
+
+// ***************************************************************************************************
+//
+// AngularJS Controller ---- 	UploadCtrl	
+//
+// ***************************************************************************************************
+
+app.controller('UploadCtrl', ['$scope', 'fileUpload', '$location','$http','$cookies', function($scope, fileUpload, $location, $http, $cookies){
+	checkLoginStatusNav();
+
+	// ---- VARIABLE STUFF ----
+	$scope.customers = [];
+	$scope.selectedCustomerId = null;
+	$scope.selectedCatalog = null;
+	$scope.existingCustomers = null;
+	$scope.catalog = ["Wedding","Birthday","Movie","Other"];
+	$scope.userPid = 0;
+
+	if( $cookies.get('user_info') != null){
+		$scope.userInfo = JSON.parse($cookies.get('user_info'));
+		$scope.userPid = $scope.userInfo.ID;
+	}else{
+		$location.path("/signin");
+		$scope.userInfo = null;
+	}
+
+	var getCustomersUrl = "http://localhost:9999/api/accounts/search?id=" + $scope.userPid + "&role=3";
+	var uploadUrl = "http://localhost:9999/api/media/store?catalog=";
+
+	console.log("getCustomersUrl: ", getCustomersUrl);
+
+	// ---- GET EXISTING CUSTOMERS FOR DROPDOWN ----
+
+    $http.get(getCustomersUrl) 
+	   .then(function(response) { 
+			if(response.data){
+				$scope.customers = response.data;
+				console.log("customers: ", $scope.customers);
+			}else{
+				console.log("no customers");
+			}
+	    })
+	   .catch(function(response){
+		   console.log("No existing customers.");
+   });
+
+	console.log("is httpd get getting called?");
+
+
+	// ---- FUNCTIONS ----
+	$scope.selectCustomer = function() {
+		$scope.selectedCustomerId = $scope.existingCustomers.ID;	
+		console.log("selected customer id: ", $scope.selectedCustomerId);
+	};
+
+	$scope.selectCatalog = function() {
+		$scope.selectedCatalog = $scope.availableCatalogs;
+		console.log("selected catalog: ", $scope.selectedCatalog);
+	};
+
+	$scope.uploadFile = function(){
+		var file = $scope.myFile;
+
+		console.log('file is ' );
+		console.log("File name is: ", $scope.myFile.name);
+		console.dir(file);
+
+		if( ($scope.selectedCustomerId == null) || ($scope.selectedCatalog == null) ){
+			console.log("need to select customer and catalog");			
+		}else{
+			uploadUrl = uploadUrl + $scope.selectedCatalog + "&id=" + $scope.selectedCustomerId + "&title=" + $scope.myFile.name;
+
+   			console.log("URI is: ", uploadUrl);
+			fileUpload.uploadFileToUrl(file, uploadUrl);
+		}
+	};
+}]);
+
+app.directive('fileModel', ['$parse', function ($parse) {
+				return {
+				restrict: 'A',
+				link: function(scope, element, attrs) {
+				var model = $parse(attrs.fileModel);
+				var modelSetter = model.assign;
+
+				element.bind('change', function(){
+						scope.$apply(function(){
+								modelSetter(scope, element[0].files[0]);
+								});
+						});
+				}
+				};
+				}]);
+
+
+app.service('fileUpload', ['$http','$location', function ($http, $location) {
+				this.uploadFileToUrl = function(file, uploadUrl){
+				var fd = new FormData();
+				fd.append('file', file);
+				$http.post(uploadUrl, fd, {
+						transformRequest: angular.identity,
+						headers: {'Content-Type': undefined}
+						})
+				.success(function(){
+						$location.path('/admin_dashboard');
+						})
+				.error(function(){
+						$location.path('/failed');
+						});
+				}
+				}]);
+
+// ***************************************************************************************************
+//
+// AngularJS Controller ----	SignupCtrl
+//
+// ***************************************************************************************************
+
+app.controller('SignupCtrl', function($scope, $location, $http, $cookies) {
+	checkLoginStatusNav();
+
+   $scope.signUp = function() {
+        var signupURL = "http://127.0.0.1:9999/api/accounts/create";
+		var role = 1;
+
+		$scope.signup.Role = 1;
+		$scope.signup.PID = 0; 		// PID=0 because signing up as partner
+
+		console.log($scope.signup);
+		console.log(signupURL);
+
+		$cookies.put("signup_info", JSON.stringify($scope.signup));
+
+		$location.path('/payment');
+/*
+   	    $http.post(signupURL, $scope.signup) 
+   	   		.then(function(response) { 
+   	        	console.log("Sign up successful.");
+				$location.path("/success");
+
+       		})
+	   		.catch(function(response){
+			   console.log("Sign up unsuccessful.");
+				$location.path("/failed");
+	   		});
+*/			
+   }
+      
+   $scope.resetLoginForm = function(){
+		$scope.login = null;
+   }
+
+});
+
+// ***************************************************************************************************
+//
+// AngularJS Controller ----	PaymentCtrl
+//
+// ***************************************************************************************************
+
+app.controller('PaymentCtrl', function($scope, $location, $http, $cookies) {
+	checkLoginStatusNav();
+
+	// CHECK AND SEE IF USER IS LOGGED IN			
+	var checkCookie = $cookies.get('auth_cookie');
+
+	if( checkCookie == null ){
+		console.log("Debug: user is not logged in yet, create user and pay.");
+
+
+
+
+
+	var signup_info = JSON.parse($cookies.get("signup_info"));
+
+	console.log("Debug: signup_info cookie = ", signup_info);
+	console.log("Debug: $scope.paymentDetails = ", $scope.paymentDetails);
+
+	// GET PRODUCTS
+	var getProductsUrl = "http://127.0.0.1:9999/api/products/list";
+	$scope.products = [];
+	$scope.selectedProductName = null;
+	$scope.selectedProductAmount = 0;
+
+	// CALL PRODUCT API TO GET LIST Of PRODUCTS
+    $http.get(getProductsUrl) 
+	   .then(function(response) { 
+			if(response.data){
+				$scope.products = response.data;
+				console.log("Debug: products = ", $scope.products);
+			}else{
+				console.log("Debug: no products");
+			}
+	    })
+	   .catch(function(response){
+		   console.log("No existing products.");
+   });
+
+	$scope.selectProduct = function(){
+		$scope.selectedProductName = $scope.productSelection.ProductType;	
+		$scope.selectedProductAmount = $scope.productSelection.Amount;
+		console.log("Debug: selected product name = ", $scope.selectedProductName);
+		console.log("Debug: selected product amount = ", $scope.selectedProductAmount);
+	}
+
+
+   $scope.makePayment = function() {
+   
+		// CREATE ACCOUNT FIRST
+        var signupURL = "http://127.0.0.1:9999/api/accounts/create";
+
+   	    $http.post(signupURL, signup_info) 
+   	   		.then(function(response) { 
+   	        	console.log("Sign up successful.");
+
+				// GET THE ACCOUNT ID BY SEARCHING BY USERNAME
+				var searchAccountURL = "http://127.0.0.1:9999/api/accounts/search?user=" + signup_info.UserName;
+				console.log("Debug: searchAccountURL = ", searchAccountURL);
+
+	   	    	$http.get(searchAccountURL) 
+   		   			.then(function(response) { 
+						if(response.data){
+							var partnerID = response.data.ID;
+							$scope.paymentDetails.ID = partnerID;
+							console.log("Debug: $scope.paymentDetails after adding ID = ", $scope.paymentDetails);
+
+							// CALL UPDATE PAYMENT API
+							var makePaymentUrl = "http://127.0.0.1:9999/api/payment/do";
+
+								$http.post(makePaymentUrl, $scope.paymentDetails) 
+									.then(function(response) { 
+										console.log("Payment successful.");
+										$cookies.remove("signup_info");
+										$location.path("/signin");
+
+									})
+									.catch(function(response){
+									   console.log("payment up unsuccessful.");
+										$location.path("/signup");
+									});
+
+
+
+						}	
+   	    			})
+		   			.catch(function(response){
+				   		console.log("Something happened while fetching for account...");
+						$location.path("/failed");
+		   		});
+
+
+       		})
+	   		.catch(function(response){
+			   console.log("Sign up unsuccessful.");
+				$location.path("/failed");
+	   	});
+
+		}
+
+
+
+
+
+
+
+
+
+
+
+	}else{
+		console.log("Debug: payment else, logged in and needs to make payment.");
+
+			// GET PRODUCTS
+			var getProductsUrl = "http://127.0.0.1:9999/api/products/list";
+			$scope.products = [];
+			$scope.selectedProductName = null;
+			$scope.selectedProductAmount = 0;
+
+			// CALL PRODUCT API TO GET LIST Of PRODUCTS
+			$http.get(getProductsUrl) 
+			   .then(function(response) { 
+					if(response.data){
+						$scope.products = response.data;
+						console.log("Debug: products = ", $scope.products);
+					}else{
+						console.log("Debug: no products");
+					}
+				})
+			   .catch(function(response){
+				   console.log("No existing products.");
+		   });
+
+	$scope.selectProduct = function(){
+		$scope.selectedProductName = $scope.productSelection.ProductType;	
+		$scope.selectedProductAmount = $scope.productSelection.Amount;
+		console.log("Debug: selected product name = ", $scope.selectedProductName);
+		console.log("Debug: selected product amount = ", $scope.selectedProductAmount);
+	}
+
+
+
+		var user_info = JSON.parse($cookies.get("user_info"));
+		var partner_id = user_info.ID;
+
+
+
+		$scope.makePayment = function() {
+			var makePaymentUrl = "http://127.0.0.1:9999/api/payment/do";
+
+			$scope.paymentDetails.ID = partner_id;
+			console.log("Debug: $scope.paymentDetails = ", $scope.paymentDetails);
+
+			$http.post(makePaymentUrl, $scope.paymentDetails) 
+					.then(function(response) { 
+						console.log("Payment successful.");
+						$location.path("/partner_dashboard");
+
+					})
+					.catch(function(response){
+  					   console.log("payment up unsuccessful.");
+    					$location.path("/partner_dashboard");
+					});
+		}
+	}//else
+
+	 
+});
+
+
+// ***************************************************************************************************
+//
+// AngularJS Controller ----    SignupCustomerCtrl
+//
+// ***************************************************************************************************
+
+app.controller('SignupCustomerCtrl', function($scope, $location, $http, $cookies) {
+    checkLoginStatusNav();
+
+	$scope.user_info = JSON.parse($cookies.get("user_info"));
+
+    $scope.signUp = function() {
+        var signupURL = "http://127.0.0.1:9999/api/accounts/create";
+                var role = 1;
+
+                $scope.signup.Role = 3;
+                $scope.signup.PID = $scope.user_info.ID;
+                console.log($scope.signup);
+                console.log(signupURL);
+
+
+            $http.post(signupURL, $scope.signup) 
+                        .then(function(response) { 
+                        console.log("Sign up successful.");
+                                $location.path("/admin_dashboard");
+
+                })
+                        .catch(function(response){
+                           console.log("Sign up unsuccessful.");
+                                $location.path("/failed");
+                        });
+    }
+       
+    $scope.resetLoginForm = function(){
+                 $scope.login = null;
+    }
+ 
+ });
+
+
+
+// ***************************************************************************************************
+//
+// AngularJS Controller ----    SignupAdminCtrl
+//
+// ***************************************************************************************************
+
+app.controller('SignupAdminCtrl', function($scope, $location, $http, $cookies) {
+        checkLoginStatusNav();
+
+	$scope.user_info = JSON.parse($cookies.get("user_info"));
+	var loggedInRole = $scope.user_info.Role;
+	console.log("Debug: loggedInRole = ", loggedInRole);
+
+   $scope.signUp = function() {
+        var signupURL = "http://127.0.0.1:9999/api/accounts/create";
+                var role = 1;
+                //var authdata = Base64.encode($scope.login.UserName + ':' + $scope.login.PWD);
+
+                $scope.signup.Role = 2;
+                $scope.signup.PID = $scope.user_info.ID;
+                console.log($scope.signup);
+                console.log(signupURL);
+
+
+            $http.post(signupURL, $scope.signup) 
+                        .then(function(response) { 
+                        console.log("Sign up successful.");
+						if(loggedInRole == 1){
+                             $location.path("/partner_dashboard");
+							 }else if(loggedInRole == 2){
+							 $location.path("/admin_dashboard");
+							 }else{
+							 $location.path("/success");
+							 }
+
+                })
+                        .catch(function(response){
+                           console.log("Sign up unsuccessful.");
+                                $location.path("/failed");
+                        });
+    }
+       
+    $scope.resetLoginForm = function(){
+                 $scope.login = null;
+    }
+ 
+ });
+
+
+
+
+
+// ***************************************************************************************************
+//
+// AngularJS Controller ----	CustDashCtrl
+//
+// ***************************************************************************************************
+
+app.controller('CustDashCtrl', function($scope, $location, $http, $cookies, $rootScope) {
+	checkLoginStatusNav();
+
+	var userRole = 0;
+	var customerID = 0;
+	var searchMediaUrl = "http://localhost:9999/api/media/search?id="
+	$scope.user_info = null;
+	$scope.FirstName = null;
+	$scope.videoList = [];
+
+				
+	// CHECK AND SEE IF USER IS LOGGED IN			
+	var checkCookie = $cookies.get('auth_cookie');
+
+	if( checkCookie == null ){
+		console.log("User is not logged in yet.");
+		$location.path("/signin");
+	}else{
+		console.log("$cookie user_info: ", $cookies.get('user_info'));
+		$scope.user_info = JSON.parse($cookies.get('user_info'));
+	}
+
+	// GET THE ROLE AND ID
+	customerID = $scope.user_info.ID;
+	userRole = $scope.user_info.Role;
+	$scope.FirstName = $scope.user_info.FirstName;
+
+	// MAKE SURE ROLE IS CUSTOMER, THEN CONSTRUCT API AND CALL FOR LIST OF VIDEOS
+	if(userRole == 3){
+			searchMediaUrl = searchMediaUrl + customerID;
+			console.log("Debug: searchMediaUrl = ", searchMediaUrl);
+	}else{
+			console.log("Debug: userRole is not a customer, redirect somewhere else then...");
+	}
+
+   	$http.get(searchMediaUrl) 
+   		.then(function(response) { 
+			if(response.data){
+				$scope.videoList = response.data;
+				console.log("Debug: videoList = ", $scope.videoList);
+			}else{
+				console.log("Debug: customer has no videos");
+			}
+       	})
+	   	.catch(function(response){
+				console.log("Debug: something has gone wrong while fetching customer videos");
+	   });
+
+
+	// GET THE VIDEO URL AND GO NEXT TO STREAMING
+	$scope.streamVideo= function(URL,videoTitle){
+		$rootScope.globalUrl = URL;
+		$rootScope.globalTitle = videoTitle;
+		console.log("Debug: $rootScope.globalUrl = ", $rootScope.globalUrl);
+		$location.path('/stream');
+	}
+});
+
+
+
+// ***************************************************************************************************
+//
+// AngularJS Controller ----	AdminDashCtrl
+//
+// ***************************************************************************************************
+
+app.controller('AdminDashCtrl', function($scope, $location, $http, $cookies, $rootScope, $timeout) {
+	checkLoginStatusNav();
+
+	var userRole = 0;
+	var customerID = 0;
+	var searchMediaUrl = "http://localhost:9999/api/media/search?id="
+	var searchCustomersUrl = "http://localhost:9999/api/accounts/search?id=";
+	$scope.user_info = null;
+	$scope.FirstName = null;
+	$scope.userPid = null;
+	$scope.customerList = [];
+	$scope.adminsList = [];
+
+	$scope.LinkUploadFile = function(){$location.path('/upload')};
+	$scope.LinkAddCustomer = function(){$location.path('/signupcustomer')};
+	$scope.LinkAddAdmin = function(){$location.path('/signupadmin')};
+				
+	// CHECK AND SEE IF USER IS LOGGED IN			
+	var checkCookie = $cookies.get('auth_cookie');
+
+	if( checkCookie == null ){
+		console.log("User is not logged in yet.");
+		$location.path("/signin");
+	}else{
+		console.log("$cookie user_info: ", $cookies.get('user_info'));
+		$scope.user_info = JSON.parse($cookies.get('user_info'));
+	}
+
+	// GET THE ROLE AND ID
+	customerID = $scope.user_info.ID;
+	userRole = $scope.user_info.Role;
+	$scope.FirstName = $scope.user_info.FirstName;
+	$scope.userPid = $scope.user_info.ID;
+
+	// CONSTRUCT SEARCH API BASED ON ROLE (either search for admins or customers)
+	if(userRole == 2){
+			searchCustomersUrl = searchCustomersUrl + $scope.userPid + "&role=3"; 
+			console.log("Debug: searchCustomersUrl = ", searchCustomersUrl);
+	}else if(userRole == 1){
+			searchCustomersUrl = searchCustomersUrl + $scope.userPid + "&role=2"; 
+	}else{
+			console.log("Debug: userRole is not an admin, redirect somewhere else then...");
+	}
+
+
+   	$http.get(searchCustomersUrl) 
+   		.then(function(response) { 
+			if(response.data){
+				$scope.customerList = response.data;
+				console.log("Debug: customerList = ", $scope.customerList);
+			}else{
+				console.log("Debug: customer has no videos");
+			}
+       	})
+	   	.catch(function(response){
+				console.log("Debug: something has gone wrong while fetching customer videos");
+	   });
+
+	$scope.makePayment = function(){
+		$location.path('/payment');
+	}
+
+});
+
+
+// ***************************************************************************************************
+//
+// AngularJS Controller ----	StreamCtrl
+//
+// ***************************************************************************************************
+
+app.controller('StreamCtrl', function($scope, $location, $http, $cookies, $timeout, $rootScope) {
+	checkLoginStatusNav();
+
+		console.log("Debug: entering StreamCtrl");
+		console.log("rootscope: ", $rootScope.globalUrl);
+		$scope.videoTitle = $rootScope.globalTitle;
+
+		// MUST WAIT 1 SECOND TO RETRIEVE ROOTSCOPE URL
+		$timeout(function () {
+			var player = videojs('example-video');
+			player.play();
+		}, 1000);
+
+});
+
+// WORK AROUND FOR STREAMING VIDEO 
+app.directive('streamVideoDir', function($rootScope){
+
+	return {
+		restrict: 'E',
+		template: '<video id=example-video width=960 height=400 class="video-js vjs-default-skin" controls><source src="{{globalUrl}}" type="application/x-mpegURL"></video>'
+	};
+});
+
+
+
+// ***************************************************************************************************
+</script>
+</body>
+</html>

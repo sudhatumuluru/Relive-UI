@@ -1,0 +1,61 @@
+<!--
+<form action="http://localhost:9999/api/media/store?catalog=test&id=1&title=firstVideo" method="post" enctype="multipart/form-data">
+		    <label for="file">Filename:</label>
+		    <input type="file" name="file" id="file">
+		    <input type="submit" name="submit" value="Submit">
+		    </form>
+
+<div class="container">
+      <div ng-controller = "UploadCtrl" ng-show="upload">
+	           <input type = "file" file-model = "myFile"/>
+	            <button ng-click = "uploadFile()">Upload Video</button>
+      </div>
+
+</div>
+-->
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div class="container" ng-controller="UploadCtrl">
+		<div>
+    <h4>Upload Video</h4>
+
+	<div class="row">
+
+	<div class="col-md-6">
+        <div class="col-sm-offset-2 col-sm-10">
+			<label class="btn btn-default btn-file">
+				<input type = "file" file-model = "myFile"/>
+			</label>
+            <button type="submit" class="btn btn-primary" ng-click="uploadFile()">Upload Video</button>
+        </div>
+
+	</div>
+
+	<div class="col-md-6">
+	<div class="dropdown">
+
+
+			<select ng-model="existingCustomers" ng-change="selectCustomer()" ng-options="item.UserName for item in customers" type="button" class="btn btn-primary dropdown-toggle">
+			    <option value="">Select Customer to upload for...</option>
+			</select>
+
+			<select ng-model="availableCatalogs" ng-change="selectCatalog()" ng-options="item for item in catalog" type="button" class="btn btn-primary dropdown-toggle">
+			    <option value="">Select Catalog for Video Type...</option>
+			</select>
+
+	</div>
+	</div>
+	</div>
+</div>
+

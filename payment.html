@@ -1,0 +1,49 @@
+<div class="container" ng-controller="PaymentCtrl">
+		<div id="Checkout" class="inline">
+				<h1>Product Selection</h1>
+
+				<div class="dropdown">
+					<select ng-model="productSelection" ng-change="selectProduct()" ng-options="item.ProductType for item in products" type="button" class="btn btn-primary dropdown-toggle">
+			    		<option value="">Select your product option...</option>
+					</select>
+				</div>
+				<h1>Pay Invoice</h1>
+				<form>
+						<div class="form-group">
+								<label for="PaymentAmount">Payment amount</label>
+								<div class="amount-placeholder">
+										<span>$</span>
+										<span>{{selectedProductAmount}}</span>
+								</div>
+						</div>
+						<div class="form-group">
+								<label or="NameOnCard">Name on card</label>
+								<input id="NameOnCard" class="form-control" type="text" maxlength="255"></input>
+						</div>
+						<div class="form-group">
+								<label for="CreditCardNumber">Card number</label>
+								<input id="CreditCardNumber" class="null card-image form-control" type="text" ng-model="paymentDetails.ccNumber"></input>
+						</div>
+						<div class="form-group">
+								<label or="NameOnCard">Billing address</label>
+								<input id="NameOnCard" class="form-control" type="text" maxlength="500" ng-model="paymentDetails.BillingAddress"></input>
+						</div>
+						<div class="expiry-date-group form-group">
+								<label for="ExpiryDate">Expiry date</label>
+								<input id="ExpiryDate" class="form-control" type="text" placeholder="MM / YY" maxlength="7" ng-model="paymentDetails.CCExpiry"></input>
+						</div>
+						<div class="security-code-group form-group">
+								<label for="SecurityCode">Security code</label>
+								<div class="input-container" >
+										<input id="SecurityCode" class="form-control" type="number" ng-model="paymentDetails.CVVCode"></input>
+										<i id="cvc" class="fa fa-question-circle"></i>
+								</div>
+						</div>
+						<button id="PayButton" class="btn btn-block btn-success submit-button" ng-click="makePayment()">
+								<span class="submit-button-lock"></span>
+								<span class="align-middle" ng-click="makePayment()">Pay ${{selectedProductAmount}}</span>
+						</button>
+
+				</form>
+		</div>
+</div>

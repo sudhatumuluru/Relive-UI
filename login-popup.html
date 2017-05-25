@@ -1,0 +1,45 @@
+<md-dialog aria-label="Login" ng-controller="LoginCtrl as vm">
+
+    <form name="loginForm" data-ng-submit="vm.handleSubmit()">
+
+        <md-toolbar>
+            <div class="md-toolbar-tools">
+                <h2>Login</h2>
+                <span flex></span>
+                <md-button type="button" class="md-icon-button" ng-click="vm.handleCancel(); $event.stopPropagation();">
+                    <ng-md-icon icon="navigation:close" aria-label="Close"><i class="fa fa-close"></i></ng-md-icon>
+                </md-button>
+            </div>
+        </md-toolbar>
+
+        <md-dialog-content>
+            <div class="md-dialog-content">
+                <md-input-container class="md-block">
+                    <label>Username:</label>
+                    <input ng-model="vm.username" required>
+                </md-input-container>
+
+                <md-input-container class="md-block">
+                    <label>Password:</label>
+                    <input ng-model="vm.password" type="password" required>
+                </md-input-container>
+            </div>
+        </md-dialog-content>
+
+        <md-dialog-actions layout="row">
+            <span flex></span>
+            <md-button type="button" ng-click="vm.handleCancel(); $event.stopPropagation();"
+                       aria-label="Cancel">
+                Cancel
+            </md-button>
+            <md-button type="submit" class="md-primary"
+                       ng-class="{'md-raised md-hue-1': (loginForm.$dirty && loginForm.$valid) }"
+                       aria-label="OK">
+                Submit
+            </md-button>
+        </md-dialog-actions>
+
+    </form>
+
+</md-dialog>
+

@@ -1,0 +1,149 @@
+<html>
+
+<head>
+    
+    <title> Payment Page </title>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.5.8/angular.js"></script>
+    
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+    <link rel="stylesheet" href="css/stlye.css">
+    <link rel="stylesheet" href="font-awesome-4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="css/animate.css">
+    
+    
+    
+</head>
+    
+
+<body>
+    
+     <div id="myNavBar" class="navbar navbar-default navbar-fixed-top" role="navigation">
+        <div class="container">
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+            
+                <a href="#" class="navbar-brand">reLive</a>
+            </div>
+            <div class="navbar-collapse collapse">
+                <ol class="nav navbar-nav navbar-right">
+                    <li><a href="#header">Home</a></li>
+                    <li><a href="#services">services</a></li>
+                    <li><a href="#pricing">pricing</a></li>
+                    <li><a href="#team">team</a></li>
+                    <li><a href="#clients">clients </a></li>
+                    <li><a href="#contacts">contacts</a></li>
+                </ol>
+            </div>
+        </div>
+    </div>
+    
+
+    <div id="paymentForm" class="paymentForm" class="container">
+        <h1>Payment</h1>
+    <form>
+        <div class="row">
+            <div class="form-group col-xs-3">
+                <label for="inputName">Name</label>
+                <input class="form-control input-sm" type="text" id="inputName"
+                        placeholder="Full Name" />
+            </div>
+        </div>
+        <div class="row">
+            <div class="form-group col-xs-3">
+                <label for="inputDOB">Subscription Type</label>
+                <select class="form-control input-sm">
+                    <option>Bronze</option>
+                    <option>Silver</option>
+                    <option>Gold</option>
+                    <option>Platinum</option>
+                </select>
+            </div>
+        </div>
+        
+        <div class="row">
+            <div class="form-group col-xs-3">
+                <label for="inputName">Amount</label>
+                <input class="form-control input-sm" type="Number" id="AmountValue"
+                        placeholder="Amount" />
+            </div>
+        </div>
+        <div class="row">
+            <div class="form-group col-xs-3">
+                <label for="inputName">Memo</label>
+                <input class="form-control input-sm" type="text" id="Memo"
+                        placeholder="Memo" />
+            </div>
+        </div>
+    </form>
+</div>
+    
+    <div id="paymentMethod" class="paymentMethod" class="container">
+        <h1>Payment Method</h1>
+    <form>
+        <div class="row">
+            <div class="form-group col-xs-6">
+                <label class="radio-inline">
+                <input type="radio" name="radioGroup" id="opt1" value="1">
+                    Visa
+                </label>
+                <label class="radio-inline">
+                    <input type="radio" name="radioGroup" id="opt2" value="2">
+                    MasterCard
+                </label>
+                <label class="radio-inline">
+                <input type="radio" name="radioGroup" id="opt3" value="3">
+                    American Express
+                </label>
+            </div>
+        </div>
+        <div class="row">
+            <div class="form-group col-xs-6">
+                <label class="radio-inline">
+                <input type="radio" name="radioGroup" id="opt1" value="1">
+                    Credit Card
+                </label>
+                <label class="radio-inline">
+                    <input type="radio" name="radioGroup" id="opt2" value="2">
+                    Debit Card
+                </label>
+            </div>
+        </div>
+        <div class="row">
+            <div class="form-group col-xs-3">
+                <label for="inputName">Card Number</label>
+                <input class="form-control input-sm" type="Number" id="cardNumber"
+                        placeholder="Enter your Card Number" />
+            </div>
+        </div>
+        
+        <div class="row">
+            <div class="form-group col-xs-3">
+                <label for="inputName">Expiry</label>
+                <input class="form-control input-sm" type="date" id="expiryDate"
+                        placeholder="Enter Expiry Date" />
+            </div>
+        </div>
+        <div class="row">
+            <div class="form-group col-xs-3">
+                <label for="inputName">Security code</label>
+                <input class="form-control input-sm" type="text" id="securityCode"
+                        placeholder="Enter Security Code" />
+            </div>
+        </div>
+        <p><button class="btn btn-primary">Process Payment</button></p>
+    </form>
+</div>
+    
+    
+</body>
+  
+    
+</html>
